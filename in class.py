@@ -13,14 +13,9 @@ import pandas as pd
 from sklearn.linear_model import LogisticRegression
 import numpy as np
 
-text = ["купи афон за 100 рублей", #spam
-"встречаа в офисе в 10.00", #not spam
-"вы выиграли миллион,пришлите денег", #spam
-"Отчет: продажи за квартал 2025",#not spam
-"Срочно! Позвони сейчас и получи приз",#spam
-"Напоминаем про оплату счета"]#not spam"
+text = pd.read_csv("тексты.csv")
 
-lable = [1,0,1,0,1,0] #1- spam; 0 - not spam
+lable = [0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0] #1- spam; 0 - not spam
 
 text_train,text_test,y_train,y_test = train_test_split(text,lable,test_size=0.33,random_state=42)
 
@@ -35,7 +30,7 @@ print(y_pred)
 print(f"Accurancy:{accuracy_score(y_test,y_pred)}")
 
 print("New: ",pipe.predict(["Поздравляем !Вы победитель . пришлит нам свой CVV код"])[0])
-print("New: ",pipe.predict(["Добрый вечер!Встреча завтра в"])[0])
+print("New: ",pipe.predict(["Добрый вечер!Встреча завтра в 12:00"])[0])
 
 # Linear regression
 
@@ -48,6 +43,4 @@ model.fit(x,y) # обучаем логистич регрессию
 
 report = np.array([[len(text_array)]])
 logistic_pred = model.predict(report)[0]
-print(f" Logistic regression prediction next week:{logistic_pred}")
-
-
+print(f" Logistic regression prediction :{logistic_pred}")
